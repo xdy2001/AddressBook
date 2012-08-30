@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Console implements Runnable {
-    public static String ab = "ab>";
+    public static final String ab = "ab>";
     private AddressContainer container = new AddressContainer();
     private Scanner scan = new Scanner(System.in);
 
