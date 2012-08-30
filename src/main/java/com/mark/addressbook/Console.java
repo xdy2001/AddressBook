@@ -1,6 +1,7 @@
 package com.mark.addressbook;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Console implements Runnable {
@@ -70,17 +71,20 @@ public class Console implements Runnable {
                     if ("name".equals(searchType)) {
                         System.out.print("Name: ");
                         String pattern = scan.nextLine();
-                        container.deleteByName(pattern);
+                        int count = container.deleteByName(pattern);
+                        System.out.println(count + " address entries deleted");
                         break;
                     } else if ("mobile".equals(searchType)) {
                         System.out.print("Mobile: ");
                         String pattern = scan.nextLine();
-                        container.deleteByMobile(pattern);
+                        int count = container.deleteByMobile(pattern);
+                        System.out.println(count + " address entries deleted");
                         break;
                     } else if ("address".equals(searchType)) {
                         System.out.print("Address: ");
                         String pattern = scan.nextLine();
-                        container.deleteByAddress(pattern);
+                        int count = container.deleteByAddress(pattern);
+                        System.out.println(count + " address entries deleted");
                         break;
                     } else {
                         System.out.println("Error Command.");

@@ -203,11 +203,10 @@ public class AddressContainer {
 
     /**
      * delete all the entries whose name matches the given regex
-     * 
      * @param regex
-     * 
+     * @return the count of deleted entries
      */
-    public void deleteByName(String regex) {
+    public int deleteByName(String regex) {
         int count = 0;
         synchronized (addressList) {
             for (int i = 0; i < addressList.size(); i++) {
@@ -218,15 +217,15 @@ public class AddressContainer {
                 }
             }
         }
-        System.out.println(count + " address entries deleted");
+        return count;
     }
 
     /**
      * delete all the entries whose mobile matches the given regex
-     * 
      * @param regex
+     * @return the count of deleted entries
      */
-    public void deleteByMobile(String regex) {
+    public int deleteByMobile(String regex) {
         int count = 0;
         synchronized (addressList) {
             for (int i = 0; i < addressList.size(); i++) {
@@ -237,15 +236,15 @@ public class AddressContainer {
                 }
             }
         }
-        System.out.println(count + " address entries deleted");
+        return count;
     }
 
     /**
      * delete all the entries whose address matches the given regex
-     * 
      * @param regex
+     * @return the count of deleted entries
      */
-    public void deleteByAddress(String regex) {
+    public int deleteByAddress(String regex) {
         int count = 0;
         synchronized (addressList) {
             for (int i = 0; i < addressList.size(); i++) {
@@ -256,7 +255,7 @@ public class AddressContainer {
                 }
             }
         }
-        System.out.println(count + " address entries deleted");
+        return count;
     }
 
     /**
@@ -321,7 +320,7 @@ public class AddressContainer {
      * 
      * @param ret
      */
-    private void print(List<Address> ret) {
+    public static void print(List<Address> ret) {
         System.out.println(ret.size() + " address entries found");
         if (ret.size() > 0) {
             List<StringBuilder> nameList = new ArrayList<StringBuilder>(ret
@@ -366,14 +365,14 @@ public class AddressContainer {
         }
     }
 
-    private void fill(StringBuilder sb, int length) {
+    private static void fill(StringBuilder sb, int length) {
         int size = sb.length();
         for (int i = 0; i < length - size; i++) {
             sb.append(" ");
         }
     }
 
-    private String fill(String s, int length) {
+    private static String fill(String s, int length) {
         int size = s.length();
         StringBuilder sb = new StringBuilder(s);
         for (int i = 0; i < length - size; i++) {
