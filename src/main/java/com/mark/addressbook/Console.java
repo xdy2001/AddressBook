@@ -1,7 +1,6 @@
 package com.mark.addressbook;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Scanner;
 
 public class Console implements Runnable {
@@ -17,11 +16,7 @@ public class Console implements Runnable {
             command = scan.nextLine();
 
             if ("!quit".equals(command)) {
-                try {
-                    container.export();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                container.export();
                 break;
             } else if ("!help".equals(command)) {
                 printMsg();
@@ -72,19 +67,28 @@ public class Console implements Runnable {
                         System.out.print("Name: ");
                         String pattern = scan.nextLine();
                         int count = container.deleteByName(pattern);
-                        System.out.println(count + " address entries deleted");
+                        if (count >= 0) {
+                            System.out.println(count
+                                    + " address entries deleted");
+                        }
                         break;
                     } else if ("mobile".equals(searchType)) {
                         System.out.print("Mobile: ");
                         String pattern = scan.nextLine();
                         int count = container.deleteByMobile(pattern);
-                        System.out.println(count + " address entries deleted");
+                        if (count >= 0) {
+                            System.out.println(count
+                                    + " address entries deleted");
+                        }
                         break;
                     } else if ("address".equals(searchType)) {
                         System.out.print("Address: ");
                         String pattern = scan.nextLine();
                         int count = container.deleteByAddress(pattern);
-                        System.out.println(count + " address entries deleted");
+                        if (count >= 0) {
+                            System.out.println(count
+                                    + " address entries deleted");
+                        }
                         break;
                     } else {
                         System.out.println("Error Command.");
