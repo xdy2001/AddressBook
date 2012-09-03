@@ -611,6 +611,7 @@ public class AddressContainerTest {
         while (scanner.hasNext()) {
             actual += scanner.nextLine()+"\n";
         }
+        scanner.close();
         assertEquals(expected, actual);
     }
 
