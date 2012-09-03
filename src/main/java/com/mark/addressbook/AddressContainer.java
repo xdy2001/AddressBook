@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -71,8 +72,12 @@ public class AddressContainer {
         if (file.exists()) {
             try {
                 readXML(file);
-            } catch (Exception e) {
-                System.err.println("load XML failed.");
+            } catch (ParserConfigurationException e) {
+                System.err.println("a DocumentBuilder cannot be created which satisfies the configuration requested.");
+            } catch (SAXException e) {
+                System.err.println("The File \"Address.xml\" is not formatted right");
+            } catch (IOException e) {
+               System.err.println("Some IO Exception occurs.");
             }
         }
     }
@@ -80,13 +85,9 @@ public class AddressContainer {
     /**
      * export the address list to Address.xml
      * 
-     * @throws IOException
      */
-    public void export() throws IOException {
+    public void export(){
         File file = new File(fileName);
-        if (file.exists()) {
-            file.createNewFile();
-        }
         synchronized (addressList) {
             exportXMLFile(file);
         }
@@ -97,8 +98,9 @@ public class AddressContainer {
         DocumentBuilder builder = null;
         try {
             builder = dbf.newDocumentBuilder();
-        } catch (Exception e) {
-
+        } catch (ParserConfigurationException e) {
+            System.out.println("a DocumentBuilder cannot be created which satisfies the configuration requested.");
+            return;
         }
         Document doc = builder.newDocument();
         Element root = doc.createElement("AddressList");
@@ -149,8 +151,10 @@ public class AddressContainer {
             SAXException, IOException {
         addressList.clear();
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = dbf.newDocumentBuilder();
-        Document doc = builder.parse(file);
+        DocumentBuilder builder = null;
+        builder = dbf.newDocumentBuilder();
+        Document doc = null;
+        doc = builder.parse(file);
         Element root = doc.getDocumentElement();
         NodeList entrys = root.getElementsByTagName("Address");
         int length = entrys.getLength();
@@ -203,10 +207,18 @@ public class AddressContainer {
 
     /**
      * delete all the entries whose name matches the given regex
+     * 
      * @param regex
      * @return the count of deleted entries
      */
     public int deleteByName(String regex) {
+        try {
+            Pattern p = Pattern.compile(regex);
+        } catch (PatternSyntaxException e) {
+            System.out
+                    .println(regex + " a invalid regular-expression pattern.");
+            return -1;
+        }
         int count = 0;
         synchronized (addressList) {
             for (int i = 0; i < addressList.size(); i++) {
@@ -222,10 +234,18 @@ public class AddressContainer {
 
     /**
      * delete all the entries whose mobile matches the given regex
+     * 
      * @param regex
      * @return the count of deleted entries
      */
     public int deleteByMobile(String regex) {
+        try {
+            Pattern p = Pattern.compile(regex);
+        } catch (PatternSyntaxException e) {
+            System.out
+                    .println(regex + " a invalid regular-expression pattern.");
+            return -1;
+        }
         int count = 0;
         synchronized (addressList) {
             for (int i = 0; i < addressList.size(); i++) {
@@ -241,10 +261,18 @@ public class AddressContainer {
 
     /**
      * delete all the entries whose address matches the given regex
+     * 
      * @param regex
      * @return the count of deleted entries
      */
     public int deleteByAddress(String regex) {
+        try {
+            Pattern p = Pattern.compile(regex);
+        } catch (PatternSyntaxException e) {
+            System.out
+                    .println(regex + " a invalid regular-expression pattern.");
+            return -1;
+        }
         int count = 0;
         synchronized (addressList) {
             for (int i = 0; i < addressList.size(); i++) {
@@ -265,6 +293,13 @@ public class AddressContainer {
      * @return the entries whose name matches the given regex
      */
     public List<Address> searchByName(String regex) {
+        try {
+            Pattern p = Pattern.compile(regex);
+        } catch (PatternSyntaxException e) {
+            System.out
+                    .println(regex + " a invalid regular-expression pattern.");
+            return null;
+        }
         List<Address> ret = new ArrayList<Address>();
         synchronized (addressList) {
             for (Address a : addressList) {
@@ -284,6 +319,13 @@ public class AddressContainer {
      * @return the entries whose mobile matches the given regex
      */
     public List<Address> searchByMobile(String regex) {
+        try {
+            Pattern p = Pattern.compile(regex);
+        } catch (PatternSyntaxException e) {
+            System.out
+                    .println(regex + " a invalid regular-expression pattern.");
+            return null;
+        }
         List<Address> ret = new ArrayList<Address>();
         synchronized (addressList) {
             for (Address a : addressList) {
@@ -303,6 +345,13 @@ public class AddressContainer {
      * @return the entries whose address matches the given regex
      */
     public List<Address> searchByAddress(String regex) {
+        try {
+            Pattern p = Pattern.compile(regex);
+        } catch (PatternSyntaxException e) {
+            System.out
+                    .println(regex + " a invalid regular-expression pattern.");
+            return null;
+        }
         List<Address> ret = new ArrayList<Address>();
         synchronized (addressList) {
             for (Address a : addressList) {
