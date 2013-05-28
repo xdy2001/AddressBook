@@ -1,0 +1,17 @@
+server:addressbook.o server.o contact.o  cs.o
+  g++ -o server addressbook.o  server.o contact.o cs.o
+
+addressbook.o:addressbook.cpp  addressbook.h contact.h
+	g++ -c addressbook.cpp
+
+server.o:server.cpp server.h  addressbook.h cs.h
+	g++ -c server.cpp
+
+contact.o:contact.cpp contact.h
+	g++ -c contact.cpp
+
+cs.o:cs.c  cs.h
+	gcc -c cs.c
+
+clean:
+	rm -rf *.o
