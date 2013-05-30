@@ -1,0 +1,11 @@
+/********************************
+* name:  addressbook            *
+* developer:    shp             *
+* date:  2013/05/28             *
+********************************/
+1.Program is developed at ubuntu 12.10
+2.work following steps for running
+    I.make -f smakefile
+    II.make -f cmakefile
+    III.copy server and client to the same directory
+    IV../client

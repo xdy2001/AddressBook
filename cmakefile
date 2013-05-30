@@ -1,0 +1,13 @@
+client:client.o cc.o
+  g++ -o client client.o cc.o
+
+client.o:client.cpp  client.h  cc.h
+	g++ -c client.cpp
+
+cc.o:cc.c  cc.h
+	gcc -c cc.c
+
+clean:  
+	rm -rf *.o
+
+
